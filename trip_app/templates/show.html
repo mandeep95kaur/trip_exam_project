@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>View Job</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto"></ul>
+                <span class="navbar-text">
+                    <a href="/travels" role="button"
+                        class="btn btn-sm btn-info ml-2 text-white">Back</a> <a href="/logout" role="button"
+                        class="btn btn-sm btn-info ml-2 text-white">Logout</a> 
+                </span>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h3>{{trip.destination}}</h3>
+        <p>Planned by: {{trip.creater.first_name}} {{trip.creater.last_name}}</p>
+        <p>Description: {{trip.description}}</p>
+        <p>Travel Date From: {{trip.travel_date_from}}</p>
+        <p>Travel Date To: {{trip.travel_date_to}}</p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travel Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav mr-auto"></ul>
+                <span class="navbar-text">
+                    <a href="/logout" role="button"
+                        class="btn btn-sm btn-info ml-2 text-white">Logout</a> <button type="submit" class="btn btn-primary"><a href="/travels/addtrip">Add new Trip</a></button>
+                </span>
+            </div>
+        </div>
+    </nav><!-- /NAVBAR -->
+    <h1>Welcome, {{request.session.greeting}}</h1>
+    <h3>Your Trip Schedules:</h3>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Travel Start Date</th>
+                <th>Travel end Date</th>
+                <th>Plan</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trip in true_trip %}
+            <tr>
+                <td>{{ trip.id }}</td>
+                <td><a href="/travels/{{ trip.id }}" role="button"
+                    class="btn btn-sm btn-info ml-2 text-white">{{trip.destination}}</td>
+                <td>{{ trip.travel_date_from }}</td>
+                <td>{{ trip.travel_date_to }}</td>
+                <td>{{ trip.description }}</td>
+                <td><a href="/travels/{{ trip.id }}/cancel">Cancel</a> | 
+                    {% if this_user.id == trip.creater.id %}
+                    <a href="/travels/{{ trip.id }}/delete">Delete</a> 
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h3>Other User's Travel plans:</h3>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Travel Start Date</th>
+                <th>Travel end Date</th>
+                <th>Do you want to join?</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for trip in false_trip %}
+            <tr>
+                <td><a href="/travels/{{ trip.id }}" role="button"
+                    class="btn btn-sm btn-info ml-2 text-white">{{trip.destination}}</td>
+                <td>{{ trip.travel_date_from |date:"SHORT_DATE_FORMAT" }} </td>
+                <td>{{ trip.travel_date_to |date:"SHORT_DATE_FORMAT" }}</td>
+                <td><a href="/travels/{{ trip.id }}/join">Join</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
